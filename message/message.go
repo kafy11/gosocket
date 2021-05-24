@@ -12,7 +12,7 @@ type MessageReceived struct {
 	Msg    string `json:"msg"`
 }
 
-type MessageToSent struct {
+type MessageToSend struct {
 	Action string `json:"action"`
 	From   int    `json:"from"`
 	Msg    string `json:"msg"`
@@ -23,7 +23,7 @@ func Handler(self *client.Data) {
 	self.DecodeMessageReceived(&message)
 	log.Info(message.Action)
 
-	sent, err := server.SendMessage(message.To, &MessageToSent{
+	sent, err := server.SendMessage(message.To, &MessageToSend{
 		Action: message.Action,
 		From:   self.Id,
 		Msg:    message.Msg,
@@ -32,7 +32,7 @@ func Handler(self *client.Data) {
 	if err != nil {
 		log.Error(err)
 	} else if !sent {
-		self.SendMessage(&MessageToSent{
+		self.SendMessage(&MessageToSend{
 			Action: message.Action,
 			From:   self.Id,
 		})
