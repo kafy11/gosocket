@@ -26,14 +26,14 @@ func openLogFile(filename string) *log.Logger {
 	return log.New(file, "", log.Ldate|log.Ltime|log.Lshortfile)
 }
 
-func Error(err error) {
-	ErrorLog.Println(err.Error())
+func Error(s ...interface{}) {
+	ErrorLog.Println(s...)
 }
 
-func Warning(msg string) {
-	WarningLog.Println(msg)
+func Warning(s ...interface{}) {
+	WarningLog.Println(s...)
 }
 
-func Info(msg string) {
-	InfoLog.Println(msg)
+func Info(s ...interface{}) {
+	InfoLog.Println(s...)
 }
