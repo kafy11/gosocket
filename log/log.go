@@ -37,3 +37,8 @@ func Warning(s ...interface{}) {
 func Info(s ...interface{}) {
 	InfoLog.Println(s...)
 }
+
+func Fatal(s ...interface{}) {
+	ErrorLog.Println(s...)
+	log.Fatal(s...)
+}
