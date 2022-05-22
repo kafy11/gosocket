@@ -5,40 +5,30 @@ import (
 	"os"
 )
 
-var (
-	WarningLog *log.Logger
-	InfoLog    *log.Logger
-	ErrorLog   *log.Logger
-)
-
-func init() {
-	InfoLog = openLogFile("info_log.txt")
-	WarningLog = openLogFile("warning_log.txt")
-	ErrorLog = openLogFile("error_log.txt")
-}
-
-func openLogFile(filename string) *log.Logger {
+func writeLog(filename string, s ...interface{}) *log.Logger {
 	file, err := os.OpenFile(filename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	return log.New(file, "", log.Ldate|log.Ltime|log.Lshortfile)
+	logger := log.New(file, "", log.Ldate|log.Ltime|log.Lshortfile)
+	logger.Println(s...)
+	file.Close()
 }
 
 func Error(s ...interface{}) {
-	ErrorLog.Println(s...)
+	writeLog("error_log.txt", s...)
 }
 
 func Warning(s ...interface{}) {
-	WarningLog.Println(s...)
+	writeLog("warning_log.txt", s...)
 }
 
 func Info(s ...interface{}) {
-	InfoLog.Println(s...)
+	writeLog("info_log.txt", s...)
 }
 
 func Fatal(s ...interface{}) {
-	ErrorLog.Println(s...)
+	writeLog("error_log.txt", s...)
 	log.Fatal(s...)
 }
