@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func writeLog(filename string, s ...interface{}) *log.Logger {
+func writeLog(filename string, s ...interface{}) {
 	file, err := os.OpenFile(filename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
 		log.Fatal(err)
